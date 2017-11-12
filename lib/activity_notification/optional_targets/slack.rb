@@ -28,7 +28,7 @@ module ActivityNotification
       def notify(notification, options = {})
         target_username = notification.target.resolve_value(options.delete(:target_username) || @target_username)
         channel = notification.target.resolve_value(options.delete(:channel) || @channel)
-        @notifier.ping(render_notification_message(notification, options.merge(assignment: { channel:-: channel })))
+        @notifier.ping(render_notification_message(notification, options.merge(assignment: { channel: channel })))
       end
     end
   end
