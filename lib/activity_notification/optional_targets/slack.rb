@@ -11,6 +11,7 @@ module ActivityNotification
       # @option options [Hash]                 others                 Other options to be set Slack::Notifier.new, like :channel, :username, :icon_emoji etc
       def initialize_target(options = {})
         @target_username = options.delete(:target_username)
+        @channel = options.delete(:channel)
         @notifier = ::Slack::Notifier.new(options.delete(:webhook_url), options)
       end
 
@@ -26,6 +27,7 @@ module ActivityNotification
       # @option options [Hash]                 others                                     Parameters to be set as locals
       def notify(notification, options = {})
         target_username = notification.target.resolve_value(options.delete(:target_username) || @target_username)
+        channel = notification.target.resolve_value(options.delete(:channel) || @channel)
         @notifier.ping(render_notification_message(notification, options.merge(assignment: { target_username: target_username })))
       end
     end
