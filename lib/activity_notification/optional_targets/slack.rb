@@ -11,7 +11,7 @@ module ActivityNotification
       # @option options [Hash]                 others                 Other options to be set Slack::Notifier.new, like :channel, :username, :icon_emoji etc
       def initialize_target(options = {})
         @target_username = options.delete(:target_username)
-        @channel = options.add(:channel)
+        @channel = options.push(:channel)
         @notifier = ::Slack::Notifier.new(options.delete(:webhook_url), options)
       end
 
